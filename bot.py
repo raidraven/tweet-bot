@@ -1,5 +1,5 @@
 import os, requests, random, textwrap
-from datetime import datetime, timezone
+from datetime import date, timezone
 from openai import OpenAI
 import os
 
@@ -8,12 +8,13 @@ IFTTT_URL = os.environ["IFTTT_URL"]  # 例: https://maker.ifttt.com/trigger/post
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-today =  datetime.date.today() 
+base_date = date.today()
+date_str = base_date.strftime("%Y年%m月%d日")  # 和風表記にもできる
 
 # お好みでテーマを増やせます
 TOPICS = [
-    f"{today}以降のコンピューターゲーム情報",
-    f"{today}以降のアニメ情報",
+    f"{date_str}以降のコンピューターゲーム情報",
+    f"{date_str}以降のアニメ情報",
 ]
 
 SYSTEM = (
@@ -62,6 +63,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
