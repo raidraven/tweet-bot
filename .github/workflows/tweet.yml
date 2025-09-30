@@ -18,5 +18,8 @@ jobs:
       - run: pip install -r requirements.txt
       - env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
           IFTTT_URL: ${{ secrets.IFTTT_URL }}
         run: python bot.py
+
