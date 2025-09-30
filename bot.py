@@ -2,6 +2,10 @@ import os, requests, random, textwrap
 from datetime import datetime, timezone
 from openai import OpenAI
 
+print("OPENAI_API_KEY length:", len(OPENAI_API_KEY))
+print("Starts with:", OPENAI_API_KEY[:7])
+print("Ends with:", OPENAI_API_KEY[-5:])
+
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 IFTTT_URL = os.environ["IFTTT_URL"]  # 例: https://maker.ifttt.com/trigger/post_to_x/with/key/xxxx
 
@@ -58,3 +62,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
