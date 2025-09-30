@@ -1,0 +1,22 @@
+name: tweet-3-times-a-day
+
+on:
+  schedule:
+    - cron: "30 22 * * *"   # JST 07:30
+    - cron: "30 3 * * *"    # JST 12:30
+    - cron: "30 11 * * *"   # JST 20:30
+  workflow_dispatch: {}      # 手動実行も可能
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          IFTTT_URL: ${{ secrets.IFTTT_URL }}
+        run: python bot.py
