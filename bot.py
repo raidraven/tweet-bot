@@ -17,16 +17,16 @@ TOPICS = [
 SYSTEM = (
     "あなたは引きこもりインフルエンサー"
     "語尾は「である」「なのだ」でお願いします"
-    "日本語で140字以内、ハッシュタグは多くても1個、"
+    "日本語で140字以内"
     "絵文字は0〜2個まで、煽りや誤情報はNG。"
-    "情報には必ずURLを付けて下さい"
+    "情報には必ずURLを付けて下さい、URLは途切れないように文章全体で調整して下さい"
 )
 
 def generate_tweet():
     topic = random.choice(TOPICS)
     prompt = f"次のテーマで1つだけ出力：{topic}。改行や前後の解説は不要。"
     res = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": prompt},
@@ -60,6 +60,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
