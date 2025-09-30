@@ -17,7 +17,7 @@ date_str = today.strftime("%Y年%m月%d日")
 
 # 検索クエリ（ゲーム・アニメ）
 SEARCH_QUERIES = [
-    f"{date_str}以降のゲーム情報",
+    f"{date_str}以降のコンピューターのゲーム情報",
     f"{date_str}以降のアニメ情報",
 ]
 
@@ -87,4 +87,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
