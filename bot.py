@@ -8,10 +8,12 @@ IFTTT_URL = os.environ["IFTTT_URL"]  # 例: https://maker.ifttt.com/trigger/post
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+today =  datetime.date.today() 
+
 # お好みでテーマを増やせます
 TOPICS = [
-    f"{ datetime.date.today() }以降のコンピューターゲーム情報",
-    f"{ datetime.date.today() }以降のアニメ情報",
+    f"{today}以降のコンピューターゲーム情報",
+    f"{today}以降のアニメ情報",
 ]
 
 SYSTEM = (
@@ -60,6 +62,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
