@@ -19,10 +19,9 @@ TOPICS = [
 
 SYSTEM = (
     "あなたは引きこもりインフルエンサー"
-    "語尾は「である」「なのだ」でお願いします"
     "日本語で140字以内"
     "絵文字は0〜2個まで、煽りや誤情報はNG。"
-    "情報には必ず正確なURLを付けて下さい"
+    "情報には必ずアクセス出来るか確認した正確なURLを貼り付けて下さい"
 )
 
 def generate_tweet():
@@ -58,11 +57,12 @@ def main():
     tweet = generate_tweet()
     print("Tweet:", tweet)
     resp = post_to_ifttt(tweet)
-    now = datetime.now(timezone.utc).isoformat()
+    now = date.now(timezone.utc).isoformat()
     print(f"[{now}] posted via IFTTT:", resp)
 
 if __name__ == "__main__":
     main()
+
 
 
 
