@@ -10,8 +10,8 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 # お好みでテーマを増やせます
 TOPICS = [
-    "最新のコンピューターゲーム情報",
-    "最新のアニメ情報",
+    f"{ datetime.date.today() }以降のコンピューターゲーム情報",
+    f"{ datetime.date.today() }以降のアニメ情報",
 ]
 
 SYSTEM = (
@@ -60,6 +60,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
