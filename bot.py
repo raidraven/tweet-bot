@@ -1,17 +1,7 @@
 import os, requests, random, textwrap
 from datetime import datetime, timezone
 from openai import OpenAI
-
 import os
-
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-IFTTT_URL = os.environ.get("IFTTT_URL", "")
-
-print("OPENAI_API_KEY length:", len(OPENAI_API_KEY))
-print("Starts with:", OPENAI_API_KEY[:7])
-print("Ends with:", OPENAI_API_KEY[-5:])
-print("IFTTT_URL length:", len(IFTTT_URL))
-print("Starts with:", IFTTT_URL[:20])
 
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 IFTTT_URL = os.environ["IFTTT_URL"]  # 例: https://maker.ifttt.com/trigger/post_to_x/with/key/xxxx
@@ -21,8 +11,8 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # お好みでテーマを増やせます
 TOPICS = [
     "引きこもりの人を励ます短い一言",
-    "ゲーム好きが共感できる小ネタ",
-    "前向きになれるゆるい格言",
+    "今日のゲーム情報",
+    "今日のアニメ情報",
 ]
 
 SYSTEM = (
@@ -69,5 +59,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
