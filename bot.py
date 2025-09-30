@@ -26,7 +26,7 @@ def generate_tweet():
     topic = random.choice(TOPICS)
     prompt = f"次のテーマで1つだけ出力：{topic}。改行や前後の解説は不要。"
     res = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": prompt},
@@ -60,6 +60,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
