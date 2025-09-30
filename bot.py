@@ -1,5 +1,5 @@
 import os, requests, random, textwrap
-from datetime import date, timezone
+from datetime import datetime, timezone
 from openai import OpenAI
 import os
 
@@ -8,8 +8,8 @@ IFTTT_URL = os.environ["IFTTT_URL"]  # 例: https://maker.ifttt.com/trigger/post
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-base_date = date.today()
-date_str = base_date.strftime("%Y年%m月%d日")  # 和風表記にもできる
+today = datetime.today()
+date_str = today.strftime("%Y年%m月%d日")  # 和風表記にもできる
 
 # お好みでテーマを増やせます
 TOPICS = [
@@ -57,11 +57,12 @@ def main():
     tweet = generate_tweet()
     print("Tweet:", tweet)
     resp = post_to_ifttt(tweet)
-    now = date.now(timezone.utc).isoformat()
+    now = datetime.now(timezone.utc).isoformat()
     print(f"[{now}] posted via IFTTT:", resp)
 
 if __name__ == "__main__":
     main()
+
 
 
 
