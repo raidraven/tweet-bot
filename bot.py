@@ -18,15 +18,18 @@ date_str = today.strftime("%Y年%m月%d日")
 # 検索クエリ（ゲーム・アニメ）
 SEARCH_QUERIES = [
     f"{date_str}以降のゲームイベント情報",
-    f"{date_str}以降のゲーム発売日情報",
+    f"{date_str}以降のゲーム発売情報",
     f"{date_str}以降のゲームアップデート情報",
+    f"Steam 新作ゲーム {date_str}",
+    f"PlayStation アップデート {date_str}",
+
 ]
 
 # GPT用プロンプト
 SYSTEM_PROMPT = (
     "あなたは日本のゲーム・アニメ情報に詳しい引きこもりインフルエンサーです。\n"
     "Twitter投稿向けに、日本語で140字以内に要約してください。\n"
-    "URLはツイートに関連したものを載せてください\n"
+    "URLは記事の掲載元のを載せて下さい\n"
     "絵文字は0〜2個まで使用可能です。\n"
     "煽りや誤情報は禁止です。古い情報は除外してください。"
 )
@@ -88,6 +91,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
