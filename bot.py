@@ -1,41 +1,55 @@
 import os
-import random
 import requests
-from openai import OpenAI
+import openai
 
-# APIキーの取得
-OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-IFTTT_URL = os.environ["IFTTT_URL"]
+# 環境変数
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
+IFTTT_URL = os.getenv("IFTTT_URL")  # 例: https://maker.ifttt.com/trigger/tweet/with/key/xxxx
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+openai.api_key = OPENAI_API_KEY
 
-# ゲーム関連の検索されやすいキーワードリスト
-keywords = [
-    "原神 最強武器", 
-    "APEX 初心者向け", 
-    "モンハン 新武器",
-    "GTA6 発売日",
-    "ポケモン 新作",
-    "FF7 リメイク攻略",
-    "無課金 裏技",
-    "効率 レベル上げ"
-]
+# 1. ニュース取得
+def get_trending_news(query="ゲーム アニメ AI 最新ニュース"):
+    url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_API_KEY}&cx={GOOGLE_CSE_ID}"
+    r = requests.get(url).json()
+    if "items" in r:
+        return [(item["title"], item["link"]) for item in r["items"][:3]]
+    return []
 
-# ランダムに1つ選択
-chosen = random.choice(keywords)
+# 2. ツイート生成
+def generate_tweet(title, url):
+    prompt = f"""
+    以下のニュースを元に、X（旧Twitter）で拡散されやすいツイートを作ってください。
 
-# AIにツイート文を生成させる
-prompt = f"ゲーム好き向けに「{chosen}」を含めたツイートを140文字以内で考えて。URLを最後に追加する想定。"
+    ニュース: {title}
+    URL: {url}
 
-tweet = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": prompt}],
-    max_tokens=100
-).choices[0].message.content.strip()
+    条件:
+    - 140文字以内
+    - ゲーム/アニメ/AIユーザー向け
+    - 絵文字やハッシュタグを活用
+    """
 
-# IFTTT経由で投稿
-payload = {"value1": tweet}
-res = requests.post(IFTTT_URL, json=payload)
+    response = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=100,
+        temperature=0.8,
+    )
+    return response["choices"][0]["message"]["content"].strip()
 
-print("投稿内容:", tweet)
-print("IFTTTレスポンス:", res.status_code)
+# 3. IFTTT経由で投稿
+def post_to_x_via_ifttt(tweet):
+    payload = {"value1": tweet}
+    r = requests.post(IFTTT_URL, json=payload)
+    print("IFTTTに送信:", tweet, "ステータス:", r.status_code)
+
+# メイン処理
+if __name__ == "__main__":
+    news_list = get_trending_news()
+    for title, url in news_list:
+        tweet = generate_tweet(title, url)
+        print("投稿予定:", tweet)
+        post_to_x_via_ifttt(tweet)
