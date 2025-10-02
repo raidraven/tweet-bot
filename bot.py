@@ -38,8 +38,8 @@ QUERIES = [
     "新作Switchゲーム",
     "新作スマホゲーム",
     "Steam セール",
-    "ゲームイベント情報",
-    "話題のゲームニュース"
+    "コンピューターゲームイベント情報",
+    "話題のコンピューターゲームニュース"
 ]
 
 def get_game_search_results():
@@ -134,4 +134,5 @@ if __name__ == "__main__":
     tweet = generate_tweet(title, url, query)
     print("投稿予定:", tweet)
     post_to_x_via_ifttt(tweet)
+
 
