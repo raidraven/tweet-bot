@@ -4,11 +4,11 @@ import random
 from openai import OpenAI
 
 # ---- 環境変数 ----
-OPENAI_API_KEY = os.env("OPENAI_API_KEY")
-GOOGLE_API_KEY = os.env("GOOGLE_API_KEY")
-GOOGLE_CSE_ID = os.env("GOOGLE_CSE_ID")
-IFTTT_URL = os.env("IFTTT_URL")
-AMAZON_ASSOCIATE_TAG = os.env("AMAZON_ASSOCIATE_TAG")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
+IFTTT_URL = os.getenv("IFTTT_URL")
+AMAZON_ASSOCIATE_TAG = os.getenv("AMAZON_ASSOCIATE_TAG")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -134,3 +134,4 @@ if __name__ == "__main__":
     tweet = generate_tweet(title, url, query)
     print("投稿予定:", tweet)
     post_to_x_via_ifttt(tweet)
+
