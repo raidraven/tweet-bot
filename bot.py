@@ -106,7 +106,6 @@ def generate_tweet(title, url, query):
             - 文体: {style}
             - URLは必ず完全な形で残す
             - 絵文字の種類や語尾は毎回変える
-            - URLがAmazonリンクの場合、文章全体を商品PRに変更して下さい
             """
     resp = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -134,5 +133,6 @@ if __name__ == "__main__":
     tweet = generate_tweet(title, url, query)
     print("投稿予定:", tweet)
     post_to_x_via_ifttt(tweet)
+
 
 
